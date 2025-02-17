@@ -14,21 +14,18 @@
       display: inline-block;
       margin-left: auto;
     }
-   
-  .profile__icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-    transition: transform 0.3s ease; /* Smooth animation */
-  }
 
-  .profile__icon:hover {
-    transform: scale(1.2); /* Slightly increase the size */
-  }
     .profile__icon {
       font-size: 24px;
       cursor: pointer;
-      color: #333;
+      color: white; /* White color for the icon */
+      font-weight: bold; /* Make the icon bold */
+      transition: transform 0.3s ease; /* Smooth animation */
+    }
+
+    .profile__container {
+      display: flex;
+      align-items: center;
     }
 
     .profile__dropdown {
@@ -49,9 +46,64 @@
       text-decoration: none;
       font-size: 14px;
     }
+    .service__grid {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: stretch; /* Ensures equal height */
+}
+
+.service__card {
+  flex: 1; /* Ensures all cards take the same space */
+  height: 300px; /* Adjust height as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.service__content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service__background {
+  height: 200px; /* Adjust image height */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
     .profile__dropdown a:hover {
       background-color: #f0f0f0;
+    }
+
+    .profile__icon:hover {
+      transform: scale(1.2); /* Slightly increase the size */
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      .profile__icon {
+        font-size: 20px; /* Smaller icon on mobile */
+      }
+
+      .profile__dropdown {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        background-color: #fff;
+      }
+
+      .profile__dropdown a {
+        padding: 12px;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -61,56 +113,45 @@
       <div class="nav__bar">
         <div class="nav__header">
           <div class="nav__logo">
-            <a href="#">Green Loan<span>.</span></a>
+            <a href="#">Green Investment portal<span>$</span></a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <span><i class="ri-menu-3-line"></i></span>
           </div>
         </div>
-        <ul class="nav__links" id="nav-links">
-          <li class="link"><a href="index.html">Home</a></li>
-          </ul>
         <!-- Profile Icon Container -->
         <div class="profile__container">
-          <i class="ri-user-line profile__icon" id="profile-icon"></i>
+          <span id="profile-icon" class="profile__icon">👤</span>
+          <!-- Profile Dropdown Menu -->
+          <div id="profile-dropdown" class="profile__dropdown">
+            <a href="#" class="dropdown-link">Profile</a>
+            <a href="#" id="logout" class="dropdown-link">Logout</a>
+          </div>
         </div>
       </div>
     </nav>
   </header>
 
   <section class="section__container">
-    <h1>Investment Opportunities</h1>
-    <p>Explore a variety of investment plans designed to maximize your returns and secure your financial future.</p>
     <section class="section__container service__container" id="investment-plans">
-      <p class="section__subheader">Our Investment Plans</p>
-      <h2 class="section__header">Explore Opportunities</h2>
       <div class="service__grid">
-        <!-- Long Investment Service Card -->
+      
+        <!-- Investment Service Cards -->
         <div class="service__card service__card--long-investment" id="long-investment-card">
           <span><i class="ri-time-line"></i></span>
           <div class="service__content">
-            <h4>Long Investment</h4>
-            <p>Ideal for those looking for stable and long-term growth. Invest in reliable opportunities with guaranteed returns.</p>
+            <h4>Anual-40 Investment</h4>
+            <p></p>
           </div>
-          <img src="assets/investor.jpg" alt="Long Investment" class="service__background" />
+          <img src="assets/c.jpeg" alt="Long Investment" class="service__background" />
         </div>
-        <!-- Stokvela Service Card -->
         <div class="service__card service__card--stokvela" id="stokvela-card">
           <span><i class="ri-group-line"></i></span>
           <div class="service__content">
             <h4>Stokvela</h4>
-            <p>A community-driven investment plan. Pool resources with others and grow your wealth together effectively.</p>
+            <p></p>
           </div>
-          <img src="assets/moneycycle.jpg" alt="Stokvela" class="service__background" />
-        </div>
-        <!-- High Stake Service Card -->
-        <div class="service__card service__card--high-stake" id="high-stake-card">
-          <span><i class="ri-line-chart-line"></i></span>
-          <div class="service__content">
-            <h4>High Stake</h4>
-            <p>For seasoned investors seeking higher returns. Take calculated risks with expert guidance to maximize profits.</p>
-          </div>
-          <img src="assets/high.jpg" alt="High Stake" class="service__background" />
+          <img src="assets/a.jpeg" alt="Stokvela" class="service__background" />
         </div>
       </div>
     </section>
@@ -124,32 +165,43 @@
 
   <script>
     // Toggle the profile dropdown
-    const profileIcon = document.getElementById('profile-icon');
-    const profileDropdown = document.getElementById('profile-dropdown');
+  const profileIcon = document.getElementById('profile-icon');
+  const profileDropdown = document.getElementById('profile-dropdown');
 
-    profileIcon.addEventListener('click', function () {
-      profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-    });
+  profileIcon.addEventListener('click', function () {
+    profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+  });
 
-    // Redirect to login.html when a card is clicked
-    document.getElementById('long-investment-card').addEventListener('click', function () {
-      window.location.href = 'login.html';
-    });
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (event) {
+    if (!profileIcon.contains(event.target) && !profileDropdown.contains(event.target)) {
+      profileDropdown.style.display = 'none';
+    }
+  });
 
-    document.getElementById('stokvela-card').addEventListener('click', function () {
-      window.location.href = 'stokvela.html';
-    });
+  // Logout functionality
+  const logoutButton = document.getElementById('logout');
+  logoutButton.addEventListener('click', function () {
+    window.location.href = 'login.html'; // Redirect to login page
+  });
 
-    document.getElementById('high-stake-card').addEventListener('click', function () {
-      window.location.href = 'login.html';
-    });
+  // Navigate to respective pages when clicking investment options
+  document.getElementById('long-investment-card').addEventListener('click', function () {
+    window.location.href = 'longinvestment.html';
+  });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function (event) {
-      if (!profileIcon.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.style.display = 'none';
-      }
-    });
+  document.getElementById('stokvela-card').addEventListener('click', function () {
+    window.location.href = 'stokvela.html';
+  });
+
+ 
+  // Display the logged-in user's name (if available)
+  window.onload = function() {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      document.getElementById('profile-icon').innerText = `Hello, ${loggedInUser}`;
+    }
+  };
   </script>
 </body>
 </html>
